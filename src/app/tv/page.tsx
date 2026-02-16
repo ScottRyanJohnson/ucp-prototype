@@ -153,11 +153,11 @@ export default function TVPlatformPage() {
 
   return (
     <div className="flex h-screen flex-col bg-zinc-950 text-white">
-      {/* TV frame */}
-      <div className="flex flex-1 items-center justify-center p-4 md:p-8">
+      {/* TV frame - sized to fit standard laptop screens */}
+      <div className="flex flex-1 items-center justify-center p-3 md:p-4">
         <div
-          className="flex w-full max-w-6xl overflow-hidden rounded-3xl bg-black shadow-2xl"
-          style={{ boxShadow: "0 0 0 12px #1a1a1a, 0 0 60px rgba(0,0,0,0.8)" }}
+          className="flex w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl"
+          style={{ boxShadow: "0 0 0 10px #1a1a1a, 0 0 40px rgba(0,0,0,0.8)" }}
         >
           {/* Left panel - slides in when user asks */}
           {panelOpen && (
