@@ -70,16 +70,38 @@ export default function ShopPage() {
 
       <ul className="space-y-4">
         {products.map((product) => (
-          <li key={product.id} className="border rounded p-4 flex justify-between">
-            <div>
-              <div className="font-medium">{product.name}</div>
-              <div className="text-sm text-gray-600">
-                ${(product.priceCents / 100).toFixed(2)}
+          <li
+            key={product.id}
+            className="border rounded-lg p-4 flex gap-4 items-center justify-between"
+          >
+            <div className="flex gap-3 min-w-0 flex-1">
+              {product.image && (
+                <img
+                  src={product.image}
+                  alt=""
+                  className="h-16 w-16 shrink-0 rounded-md object-cover bg-gray-100"
+                />
+              )}
+              <div className="min-w-0">
+                <div className="font-medium">{product.name}</div>
+                {product.description && (
+                  <div className="text-sm text-gray-600">
+                    {product.description}
+                  </div>
+                )}
+                <div className="text-sm font-medium text-gray-800 mt-0.5">
+                  ${(product.priceCents / 100).toFixed(2)}
+                  {product.unit && (
+                    <span className="text-gray-500 font-normal">
+                      {" "}
+                      · {product.unit}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
-
             <button
-              className="px-3 py-1 bg-black text-white rounded"
+              className="px-3 py-1.5 bg-black text-white rounded shrink-0"
               onClick={() => addToCart(product.id)}
               disabled={loading}
             >

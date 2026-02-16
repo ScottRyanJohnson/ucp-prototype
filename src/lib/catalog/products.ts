@@ -1,5 +1,8 @@
 export type ProductCategory = "coffee" | "merchandise" | "other";
 
+/** Merchant id from .well-known (e.g. demo-merchant = ScoJo's, beans-r-us = Beans R Us) */
+export type MerchantId = "demo-merchant" | "beans-r-us";
+
 export type Product = {
   id: string;
   name: string;
@@ -11,7 +14,27 @@ export type Product = {
   description?: string;
   /** Display unit (e.g. "12oz bag") */
   unit?: string;
+  /** Image URL or path (e.g. /products/agentic-coffee-beans.jpg or placeholder URL) */
+  image?: string;
+  /** Merchant that sells this product (default demo-merchant for ScoJo's) */
+  merchantId?: MerchantId;
 };
+
+/** Shared product image (Agentic Coffee Beans image for coffee products) */
+const defaultProductImage =
+  "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=200&h=200&fit=crop";
+/** Beans R Us: different coffee bag / bean imagery for demo */
+const beansRUsImage1 =
+  "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=200&h=200&fit=crop";
+const beansRUsImage2 =
+  "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=200&h=200&fit=crop";
+const beansRUsImage3 =
+  "https://images.unsplash.com/photo-1495474474567-4c3efd9580a5?w=200&h=200&fit=crop";
+const beansRUsImage4 =
+  "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=200&h=200&fit=crop";
+/** Mug image for Autonomous Mug */
+const mugImage =
+  "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=200&h=200&fit=crop";
 
 const catalog: Product[] = [
   // Coffee
@@ -22,6 +45,7 @@ const catalog: Product[] = [
     category: "coffee",
     description: "Medium roast, single-origin",
     unit: "12oz bag",
+    image: defaultProductImage,
   },
   {
     id: "decaf-coffee-beans",
@@ -30,6 +54,7 @@ const catalog: Product[] = [
     category: "coffee",
     description: "Swiss water decaf, medium roast",
     unit: "12oz bag",
+    image: defaultProductImage,
   },
   {
     id: "dark-roast-coffee",
@@ -38,6 +63,7 @@ const catalog: Product[] = [
     category: "coffee",
     description: "Full-bodied dark roast",
     unit: "12oz bag",
+    image: defaultProductImage,
   },
   {
     id: "single-origin-ethiopian",
@@ -46,6 +72,7 @@ const catalog: Product[] = [
     category: "coffee",
     description: "Light roast, fruity and floral",
     unit: "12oz bag",
+    image: defaultProductImage,
   },
   {
     id: "espresso-blend",
@@ -54,6 +81,48 @@ const catalog: Product[] = [
     category: "coffee",
     description: "House blend for espresso",
     unit: "12oz bag",
+    image: defaultProductImage,
+  },
+  // Beans R Us (second merchant for TV discovery demo; different images)
+  {
+    id: "beans-r-us-house-blend",
+    name: "House Blend",
+    priceCents: 1400,
+    category: "coffee",
+    description: "Smooth everyday roast",
+    unit: "12oz bag",
+    image: beansRUsImage1,
+    merchantId: "beans-r-us",
+  },
+  {
+    id: "beans-r-us-colombian",
+    name: "Colombian",
+    priceCents: 1700,
+    category: "coffee",
+    description: "Single origin, medium roast",
+    unit: "12oz bag",
+    image: beansRUsImage2,
+    merchantId: "beans-r-us",
+  },
+  {
+    id: "beans-r-us-decaf",
+    name: "Decaf",
+    priceCents: 1500,
+    category: "coffee",
+    description: "Water process decaf",
+    unit: "12oz bag",
+    image: beansRUsImage3,
+    merchantId: "beans-r-us",
+  },
+  {
+    id: "beans-r-us-cold-brew",
+    name: "Cold Brew Blend",
+    priceCents: 1900,
+    category: "coffee",
+    description: "Coarse grind for cold brew",
+    unit: "12oz bag",
+    image: beansRUsImage4,
+    merchantId: "beans-r-us",
   },
   // Merchandise
   {
@@ -62,15 +131,25 @@ const catalog: Product[] = [
     priceCents: 2400,
     category: "merchandise",
     description: "Double-wall insulated",
+    image: mugImage,
   },
 ];
 
 /** All products. Prefer getCoffeeProducts() or getProductById() when possible. */
 export const products: Product[] = catalog;
 
-/** Products in the coffee category (for TV panel, etc.). */
+/** Products in the coffee category (for TV panel, etc.). ScoJo's only. */
 export function getCoffeeProducts(): Product[] {
-  return catalog.filter((p) => p.category === "coffee");
+  return catalog.filter(
+    (p) => p.category === "coffee" && (p.merchantId ?? "demo-merchant") === "demo-merchant"
+  );
+}
+
+/** Coffee products for a given merchant (for TV multi-merchant panel). */
+export function getProductsByMerchant(merchantId: MerchantId): Product[] {
+  return catalog.filter(
+    (p) => p.category === "coffee" && (p.merchantId ?? "demo-merchant") === merchantId
+  );
 }
 
 /** Lookup by id. Returns undefined if not found. */
