@@ -28,8 +28,6 @@ const beansRUsImage1 =
   "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=200&h=200&fit=crop";
 const beansRUsImage2 =
   "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=200&h=200&fit=crop";
-const beansRUsImage3 =
-  "https://images.unsplash.com/photo-1495474474567-4c3efd9580a5?w=200&h=200&fit=crop";
 const beansRUsImage4 =
   "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=200&h=200&fit=crop";
 /** Mug image for Autonomous Mug */
@@ -111,7 +109,7 @@ const catalog: Product[] = [
     category: "coffee",
     description: "Water process decaf",
     unit: "12oz bag",
-    image: beansRUsImage3,
+    image: beansRUsImage4,
     merchantId: "beans-r-us",
   },
   {
@@ -135,8 +133,13 @@ const catalog: Product[] = [
   },
 ];
 
-/** All products. Prefer getCoffeeProducts() or getProductById() when possible. */
+/** All products. Prefer getScoJoProducts(), getCoffeeProducts(), or getProductById() when possible. */
 export const products: Product[] = catalog;
+
+/** ScoJo's products only (excludes Beans R Us). Use for /shop. */
+export function getScoJoProducts(): Product[] {
+  return catalog.filter((p) => (p.merchantId ?? "demo-merchant") === "demo-merchant");
+}
 
 /** Products in the coffee category (for TV panel, etc.). ScoJo's only. */
 export function getCoffeeProducts(): Product[] {

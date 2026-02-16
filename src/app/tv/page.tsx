@@ -23,7 +23,7 @@ type DiscoveredMerchant = { id: string; name: string; ok: boolean };
 
 // Discovery step (how the TV finds coffee merchants via .well-known)
 const DISCOVERY_STEP = {
-  title: "Search coffee merchants (.well-known)",
+  title: "Search Coffee Merchants",
   modalCopy:
     "The TV platform finds merchants that support coffee checkout by fetching each merchant's UCP manifest at /.well-known/ucp (or the merchant's declared well-known URL). From the manifest it learns the merchant's name, checkout endpoints (REST and/or MCP), and capabilities. It then shows you which merchants have coffee and UCP checkout—e.g. ScoJo's and Beans R Us—so you can choose. For this order we're using ScoJo's.",
 } as const;
@@ -270,7 +270,7 @@ export default function TVPlatformPage() {
                 <div className="flex-1 overflow-y-auto p-2">
                   {showUcpSteps ? (
                     <ul className="space-y-3">
-                      {/* Discovery step: .well-known tooltip */}
+                      {/* Discovery step: .well-known tooltip; styled like other steps with checkmark */}
                       <li>
                         <button
                           ref={(el) => {
@@ -283,10 +283,11 @@ export default function TVPlatformPage() {
                           className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition-colors hover:opacity-90 ${
                             ucpModalStep === 0
                               ? "border-emerald-600 bg-emerald-950/50"
-                              : "border-zinc-700 text-zinc-500"
+                              : "border-zinc-600 bg-zinc-800/50 text-zinc-300"
                           }`}
                         >
                           <div className="flex items-center gap-2 font-medium">
+                            <span className="text-emerald-500">✓</span>
                             {DISCOVERY_STEP.title}
                           </div>
                         </button>

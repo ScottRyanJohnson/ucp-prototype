@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { products } from "@/lib/catalog/products"
+import { getScoJoProducts } from "@/lib/catalog/products"
 
 type Checkout = {
   id: string
@@ -69,7 +69,7 @@ export default function ShopPage() {
       <h1 className="text-2xl font-bold mb-6">ScoJo's Coffee Beans</h1>
 
       <ul className="space-y-4">
-        {products.map((product) => (
+        {getScoJoProducts().map((product) => (
           <li
             key={product.id}
             className="border rounded-lg p-4 flex gap-4 items-center justify-between"
